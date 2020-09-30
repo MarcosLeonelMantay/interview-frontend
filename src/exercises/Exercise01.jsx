@@ -25,7 +25,10 @@ const Exercise01 = () => {
         .then(user => user[0]) // maps [{..}] to {..} since the API provides an array
       )
     }
-    Promise.all(promises).then(users => setUsers(users));
+    Promise.all(promises).then(users => {
+       let usersFilter = users.filter(u => u !== undefined);
+       setUsers(usersFilter)
+    });
   }, [])
 
 
