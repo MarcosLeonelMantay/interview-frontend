@@ -1,33 +1,66 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 /* THE FIX STARTS HERE */
 
 // state data for 3 counters
-const data = [
-  { id: 1, value: 0 },
-  { id: 2, value: 0 },
-  { id: 3, value: 0 },
-];
+
+
+
+
 
 // Counter Component
-const Counter = ({ value }) => {
+const Counter = ({ id, value, onUpdateData }) => {
+  const onChange = newValue => {
+    onUpdateData(id, newValue)
+  }
   return (
     <div className="d-flex my-2">
       <strong>{value}</strong>
       <div className="ml-2">
-        <button className="btn btn-danger mr-1">-</button>
-        <button className="btn btn-success">+</button>
+        <button className="btn btn-danger mr-1" onClick={() => onChange(value - 1)}>-</button>
+        <button className="btn btn-success" onClick={() => onChange(value + 1)}>+</button>
       </div>
     </div>
   );
 };
 
+const Total = ({ data }) => {
+  const [total, setTotal] = useState(0);
+  useEffect(() => {
+    setTotal(data.reduce((acc, val) => {
+      return acc + val.value;
+    }, 0))
+  }, [data])
+  return (
+    <strong>Total:{total}</strong>
+  )
+}
+
 const GroupOfCounters = () => {
+  const [data, setData] = useState([
+    { id: 1, value: 0 },
+    { id: 2, value: 0 },
+    { id: 3, value: 0 },
+    { id: 4, value: 0 },
+  ]);
+
+  const onUpdateData = (id, val) => {
+    if (val < 0) return;
+    var item = data.map(i => {
+      if (i.id === id) {
+        return { id: id, value: val };
+      } else {
+        return i;
+      }
+    });
+    setData(item);
+  }
   return (
     <div>
-      {data.map((counter) => (
-        <Counter key={counter.id} value={counter.value} />
+      {data.map(({ id, value }) => (
+        <Counter key={id} id={id} value={value} onUpdateData={onUpdateData} />
       ))}
+      <Total data={data} />
     </div>
   );
 };

@@ -5,31 +5,43 @@ import Exercise01 from './exercises/Exercise01'
 import Exercise02 from './exercises/Exercise02'
 import Exercise03 from './exercises/Exercise03'
 
-const Welcome = () => {
-  return <div>
+const NavLink = props => (
+  <Link
+    {...props}
+    getProps={({ isCurrent }) => (
+      {
+        style: {
+          color: isCurrent ? "#492BC4" : " #CAD2D9"
+        }
+      })
+    }
+  />
+);
+
+const Welcome = () => (
+  <div>
     <h2>Welcome!</h2>
     <p>
       Please take a look at the 3 exercises, each of them contain instructions.
     </p>
   </div>
-}
+);
 
-const App = () => {
-  return <div className="container">
-    <h1 class="py-4">FrontEnd Interview Exercises</h1>
+const App = () => (
+  <div className="container">
+    <Link to="/" style={{ textDecoration: "none" }}>
+      <h1 className="py-4">FrontEnd Interview Exercises</h1>
+    </Link>
 
     <ul className="nav nav-tabs">
       <li className="nav-item">
-        <Link to="/" className="nav-link active">Homepage</Link>
+        <NavLink to="/exercise01" className="nav-link">Exercise 01</NavLink>
       </li>
       <li className="nav-item">
-        <Link to="/exercise01" className="nav-link">Exercise 01</Link>
+        <NavLink to="/exercise02" className="nav-link">Exercise 02</NavLink>
       </li>
       <li className="nav-item">
-        <Link to="/exercise02" className="nav-link">Exercise 02</Link>
-      </li>
-      <li className="nav-item">
-        <Link to="/exercise03" className="nav-link">Exercise 03</Link>
+        <NavLink to="/exercise03" className="nav-link">Exercise 03</NavLink>
       </li>
     </ul>
 
@@ -41,6 +53,6 @@ const App = () => {
     </Router>
 
   </div>
-}
+);
 
 export default App;
