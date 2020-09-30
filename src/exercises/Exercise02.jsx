@@ -6,7 +6,18 @@ import React, { useState, useEffect } from 'react';
 
 
 
-
+// Original Counter Component
+/* const Counter = ({ id, value, onDecrement, onIncrement }) => {
+  return (
+    <div className="d-flex my-2">
+      <strong>{value}</strong>
+      <div className="ml-2">
+        <button className="btn btn-danger mr-1" name={"decrement"} id={id} onClick={(e) => onDecrement(e.target.id)}>-</button>
+        <button className="btn btn-success" name={"increment"} id={id} onClick={(e) => onIncrement(e.target.id)}>+</button>
+      </div>
+    </div>
+  );
+}; */
 
 // Counter Component
 const Counter = ({ id, value, onUpdateData }) => {
